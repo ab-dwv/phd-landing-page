@@ -11,6 +11,7 @@
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script src="assets/cities.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 
@@ -132,40 +133,46 @@
       </div>
 
       <aside class="enquiry" aria-labelledby="enquiry-title">
-        <div class="form-intro">
-          <p class="eyebrow">Applications open</p>
-          <h2 id="enquiry-title">Admissions enquiry</h2>
-        </div>
-        <form id="enquiry-form">
-          <label class="field">Full name<input id="full-name" name="name" autocomplete="name" required maxlength="120"
-              pattern=".*\S.*" placeholder="Enter your name"></label>
-          <label class="field">Email address<input name="email" type="email" autocomplete="email" required
-              placeholder="you@example.com"></label>
-          <label class="field">Mobile number<span class="phone-field"><span class="prefix">+91</span><input
-                name="mobile" type="tel" inputmode="tel" autocomplete="tel-national" required pattern="[0-9]{10}"
-                maxlength="10" title="Enter a 10-digit mobile number."
-                placeholder="10-digit mobile number"></span></label>
-          <fieldset>
-            <legend>Preferred study mode</legend>
-            <div class="study-options">
-              <label><input type="radio" name="mode" value="Full-time" required>Full-time</label>
-              <label><input type="radio" name="mode" value="Part-time">Part-time</label>
-            </div>
-          </fieldset>
-          <label class="consent"><input type="checkbox" name="consent" required><span> I Authorize Sharda University to
-              send notifications via SMS/RCS/Call/Email/Whatsapp and agree to Terms & Conditions and Privacy
-              Policy.</span></label>
-          <button type="submit" class="cta">Enquire now <svg class="icon" aria-hidden="true">
-              <use href="#arrow" />
-            </svg></button>
+        <h2 id="enquiry-title">Ph.D. Admissions Closed</h2>
+        <form id="enquiry-form" method="dialog">
+          <label class="contact-field">
+            <span class="field-prefix" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M3 21a9 9 0 0 1 18 0"/></svg></span>
+            <span class="visually-hidden">Full name</span>
+            <input name="name" autocomplete="name" required maxlength="120" placeholder="Enter Name">
+          </label>
+          <label class="contact-field">
+            <span class="field-prefix" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></span>
+            <span class="visually-hidden">Email address</span>
+            <input name="email" type="email" autocomplete="email" required placeholder="Enter Email">
+          </label>
+          <label class="contact-field">
+            <span class="field-prefix" aria-hidden="true">+91</span>
+            <span class="visually-hidden">Mobile number with country code +91</span>
+            <input name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" required pattern="[0-9]{10}"
+              maxlength="10" title="Enter a 10-digit mobile number." placeholder="Mobile Number">
+          </label>
+          <div class="location-fields">
+            <select name="state" aria-label="State or union territory" autocomplete="address-level1" required>
+              <option value="">Select State</option>
+            </select>
+            <select name="city" aria-label="City" autocomplete="address-level2" required disabled>
+              <option value="">Select City</option>
+            </select>
+          </div>
+          <select name="discipline" aria-label="Discipline" required>
+            <option value="">Select Discipline</option>
+          </select>
+          <select name="specialization" aria-label="Specialization" required disabled>
+            <option value="">Select Specialization</option>
+          </select>
+          <label class="consent">
+            <input type="checkbox" name="consent" checked required>
+            <span>I Authorize Sharda University to send notifications via SMS/RCS/Call/Email/Whatsapp and agree to Terms &amp; Conditions and Privacy Policy.</span>
+          </label>
+          <button type="submit" class="apply-button" formnovalidate>Apply Now</button>
+          <p class="application-status" role="status"></p>
         </form>
-        <div class="confirmation" id="confirmation" hidden>
-          <h3 tabindex="-1">Enquiry preview ready</h3>
-          <p>Your details passed validation. This local preview keeps them in your browser.</p>
-          <button type="button" class="cta" id="edit-enquiry">Edit enquiry <svg class="icon" aria-hidden="true">
-              <use href="#arrow" />
-            </svg></button>
-        </div>
+        <a class="applicant-login" href="https://admissions.sharda.ac.in/phd/#lms-reg-form">Already Registered? Login</a>
       </aside>
     </section>
     <aside class="research-band" aria-labelledby="research-title">

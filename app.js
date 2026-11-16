@@ -26,22 +26,56 @@ photoButtons.forEach((button, index) => {
   });
 });
 
-const enquiryForm = document.getElementById("enquiry-form");
-const confirmation = document.getElementById("confirmation");
-const enquiryPanel = document.querySelector(".enquiry");
+// Programme names follow Sharda University's doctoral catalogue.
+const specializationsByDiscipline = {
+  "Computing Science & Engineering": ["Computer Science & Engineering", "Computer Science & Applications"],
+  "Engineering and Science": [
+    "Mechanical Engineering", "Civil Engineering", "Electrical & Electronics Engineering",
+    "Electronics & Communication Engineering", "Physics", "Chemistry", "Biochemistry",
+    "Mathematics", "Statistics", "Data Analytics", "Environmental Science"
+  ],
+  "Management": [
+    "Business Economics", "Finance Management", "General Management", "Human Resource Management",
+    "International Business", "Marketing and Brand Management", "Operations and Supply Chain Management"
+  ],
+  "Humanities & Social Sciences": ["Economics", "English", "History", "Political Science", "Psychology", "Sociology"],
+  "Mass Communication": ["Mass Communication"],
+  "Design": ["Design"],
+  "Pharmacy": ["Pharmacy"],
+  "Bio-Science and Technology": ["Life Science", "Biotechnology", "Food Science and Technology"],
+  "Allied Health Sciences": ["Physiotherapy", "Forensic Science", "Nutrition and Dietetics", "Clinical Research"],
+  "Law": ["Law"],
+  "Dental": ["Dental Sciences"],
+  "Nursing": ["Nursing"],
+  "Medical": ["Anatomy", "Biochemistry"]
+};
 
-enquiryForm.addEventListener("submit", (event) => {
+const applicationForm = document.getElementById("enquiry-form");
+const fields = applicationForm.elements;
+
+function linkDropdowns(parent, child, optionsByParent) {
+  const placeholder = child.options[0];
+
+  for (const name of Object.keys(optionsByParent)) {
+    parent.add(new Option(name, name));
+  }
+
+  function updateChoices() {
+    const choices = optionsByParent[parent.value] || [];
+    child.replaceChildren(placeholder, ...choices.map(name => new Option(name, name)));
+    child.value = "";
+    child.disabled = choices.length === 0;
+  }
+
+  parent.addEventListener("change", updateChoices);
+  updateChoices();
+}
+
+linkDropdowns(fields.state, fields.city, citiesByState);
+linkDropdowns(fields.discipline, fields.specialization, specializationsByDiscipline);
+
+applicationForm.addEventListener("submit", event => {
   event.preventDefault();
-  if (!enquiryForm.reportValidity()) return;
-  enquiryPanel.style.minHeight = enquiryPanel.offsetHeight + "px";
-  enquiryForm.hidden = true;
-  confirmation.hidden = false;
-  confirmation.querySelector("h3").focus();
-});
-
-document.getElementById("edit-enquiry").addEventListener("click", () => {
-  confirmation.hidden = true;
-  enquiryForm.hidden = false;
-  enquiryPanel.style.minHeight = "";
-  document.getElementById("full-name").focus();
+  applicationForm.querySelector(".application-status").textContent =
+    "Applications for this intake are closed. No application has been submitted.";
 });
